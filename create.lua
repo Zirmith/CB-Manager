@@ -125,7 +125,6 @@ function CB_Manager:downloadPlugin(plugin)
         local pluginName = CB_Manager:getFileName(plugin, pluginRaw)
         writefile(CB_Manager['StandardFolder'] .. "/saved_plugins/" .. pluginName, pluginRaw)
         warn("CBM | PluginDownloader Saved plugin as " .. pluginName)
-        table.insert(CB_Manager.plugins, pluginName)
     end
 end
 
@@ -146,7 +145,6 @@ function CB_Manager:addCommand(command, options)
         if not isfolder(CB_Manager['StandardFolder'] .. "/saved_commands") then
             makefolder(CB_Manager['StandardFolder'] .. "/saved_commands")
             writefile(CB_Manager['StandardFolder'] .. "/saved_commands/" .. command .. ".lua", json, null, 2)
-            table.insert(CB_Manager.commands, command)
         end
     end
 end
