@@ -1,4 +1,4 @@
-local CB_Manager = loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/Zirmith/CB-Manager/main/core.lua"))() -- This is a loadstring silly .,.
+local CB_Manager = loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/Zirmith/CB-Manager/main/client.lua"))() -- This is a loadstring silly .,.
 
 local config = CB_Manager:Configuration({
     ['prefix'] = "?",
@@ -6,14 +6,14 @@ local config = CB_Manager:Configuration({
     ['owner'] = "Your_User",
     ['admins'] = {"User","Names","Here"},
     ['mods'] = {"User","Names","Here"},
-    ['config_name'] = "Save#1"
+    ['config_name'] = "Save#1",
+    ['plugins'] = {'gethealth','example'}
 }) -- This is the bot config, that will be used / saved
+
+
 
 local client = CB_Manager:init(config) -- this is to create the bot
 
-local example_plugin = client:getPlugin('example') -- This is used to download plugins
+local plugin = client:getPlugin('getchat')  --Example to get the chat plugin, only use this once per get
 
-client:usePlugin(example_plugin, {
-  ['args1'] = "",
-  ['args2'] = ""
-}) -- this is if you want to use a plugin , max args are currently [2]
+client:usePlugin(plugin, 'Hello', 'All')  -- Send a message using it
