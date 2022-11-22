@@ -167,6 +167,33 @@ function CB_Manager:runPlugin(plugin, options)
     warn("CBM | PluginDownloader Ran plugin: " .. plugin)
 end
 
+function CB_Manager:init(config)
+    local c1 = config
+    local self = {}
+    self.Name = c1['bot']
+    self.Owner = c1['owner']
+    self.prefix = c1['prefix']
+    self.mods = c1['mods']
+    self.admins = c1['admins']
+    self.plugins = config['plugins']
+    self.commands = config['commands']
+
+    for i,v in pairs(self.plugins) do
+        CB_Manager:downloadPlugin(v)
+    end
+
+    if not config['plugins'] then
+        self.plugins = {}
+    end
+
+    if not config['commands'] then
+        self.commands = {}
+    end
+
+end
+
+
+
 getgenv().CB_Manager = CB_Manager
 
 return getgenv().CB_Manager
