@@ -9,9 +9,9 @@ local config = CB_MANAGER:Configuration({
     ['config_name'] = "Save#1"
 })
 
-CB_Manager:downloadPlugin('start') -- This is used to download plugins
+CB_MANAGER:downloadPlugin('example') -- This is used to download plugins
 
-CB_Manager:runPlugin('start', {
-  ['args1'] = "",
-  ['args2'] = ""
+CB_MANAGER:runPlugin('example', {
+  ['args1'] = "Hello",
+  ['args2'] = "World"
 }) -- This is used to run bot plugins downloaded
