@@ -66,8 +66,8 @@ function CB_Manager:Configuration(options)
     if not isfolder(CB_Manager['StandardFolder'] .. "/saved_plugins") then
         makefolder(CB_Manager['StandardFolder'] .. "/saved_plugins")
     end
-    warn('Saved Config')
-    warn('Check on file: ' .. CB_Manager['StandardFolder'])
+-- warn('Saved Config')
+   -- warn('Check on file: ' .. CB_Manager['StandardFolder'])
 end
     return s_self
 end
