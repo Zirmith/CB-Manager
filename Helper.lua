@@ -1,7 +1,7 @@
-local CB_Manager = {
-    ['StandardFolder'] = "CBM-CONFIG"
+getgenv().CB_Manager = {
+    ['StandardFolder'] = "CBM-CONFIG",
+    ['Client'] = game:GetService("Players").LocalPlayer
 }
-
 CB_Manager._index = CB_Manager
 
 function CB_Manager:Configuration(options)
@@ -57,5 +57,8 @@ function CB_Manager:loadPlugin(plugin)
     local url = ""
 end
 
-return CB_Manager
+
+
+return getgenv().CB_Manager
+
 
