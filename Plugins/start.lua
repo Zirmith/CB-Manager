@@ -1,9 +1,7 @@
-_Plugin = {
+return {
     ["PluginName"] = "DoPlugins",
     ["PluginDescription"] = "made by ps",
-    ["EXE"] = function()
-        warn('oo')
+    ["Commands"] = function()
+        print('Hello world')
     end
 }
-
-return _Plugin 
