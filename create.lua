@@ -6,7 +6,9 @@ local CB_Manager = {
 
 CB_Manager._index = CB_Manager
 
-if syn and DrawingImmediate then CB_Manager['fileExtension'] = "txt" end
+if syn and DrawingImmediate then
+    CB_Manager['fileExtension'] = "txt"
+end
 local fileExLen = #CB_Manager['fileExtension'] + 1
 
 function CB_Manager:Configuration(options)
@@ -16,7 +18,7 @@ function CB_Manager:Configuration(options)
     s_self.prefix = config['prefix']
     s_self.bot = config['bot']
     s_self.owner = config['owner']
-    s_self.admins =  config['admins'] 
+    s_self.admins = config['admins']
     s_self.mods = config['mods']
     s_self.configName = config['config_name']
     s_self.plugins = {}
@@ -26,69 +28,76 @@ function CB_Manager:Configuration(options)
         makefolder(CB_Manager['StandardFolder'])
     end
 
-    if not isfolder(CB_Manager['StandardFolder'].."/saved_configs") then
-        makefolder(CB_Manager['StandardFolder'].."/saved_configs")
-            writefile(CB_Manager['StandardFolder'].."/saved_configs/"..s_self.configName..".txt",  game:GetService("HttpService"):JSONEncode(s_self))
-            else 
-            if isfolder(CB_Manager['StandardFolder'].."/saved_configs") then
-                 writefile(CB_Manager['StandardFolder'].."/saved_configs/"..s_self.configName..".txt",  game:GetService("HttpService"):JSONEncode(s_self))
-            end
-    end
-
-    if not isfolder(CB_Manager['StandardFolder'].."/saved_admins") then
-        makefolder(CB_Manager['StandardFolder'].."/saved_admins")
-        for i,v in pairs(s_self.admins) do
-            writefile(CB_Manager['StandardFolder'].."/saved_admins/"..v..".txt", "This player is a admin.")
+    if not isfolder(CB_Manager['StandardFolder'] .. "/saved_configs") then
+        makefolder(CB_Manager['StandardFolder'] .. "/saved_configs")
+        writefile(CB_Manager['StandardFolder'] .. "/saved_configs/" .. s_self.configName .. ".txt",
+            game:GetService("HttpService"):JSONEncode(s_self))
+    else
+        if isfolder(CB_Manager['StandardFolder'] .. "/saved_configs") then
+            writefile(CB_Manager['StandardFolder'] .. "/saved_configs/" .. s_self.configName .. ".txt",
+                game:GetService("HttpService"):JSONEncode(s_self))
         end
     end
 
-    if not isfolder(CB_Manager['StandardFolder'].."/saved_mods") then
-        makefolder(CB_Manager['StandardFolder'].."/saved_mods")
-        for i,v in pairs(s_self.mods) do
-            writefile(CB_Manager['StandardFolder'].."/saved_mods/"..v..".txt", "This player is a mod.")
+    if not isfolder(CB_Manager['StandardFolder'] .. "/saved_admins") then
+        makefolder(CB_Manager['StandardFolder'] .. "/saved_admins")
+        for i, v in pairs(s_self.admins) do
+            writefile(CB_Manager['StandardFolder'] .. "/saved_admins/" .. v .. ".txt", "This player is a admin.")
         end
     end
 
-    if not isfolder(CB_Manager['StandardFolder'].."/saved_owner") then
-        makefolder(CB_Manager['StandardFolder'].."/saved_owner")
-            writefile(CB_Manager['StandardFolder'].."/saved_owner/"..s_self.owner..".txt", "This player is the owner.")
+    if not isfolder(CB_Manager['StandardFolder'] .. "/saved_mods") then
+        makefolder(CB_Manager['StandardFolder'] .. "/saved_mods")
+        for i, v in pairs(s_self.mods) do
+            writefile(CB_Manager['StandardFolder'] .. "/saved_mods/" .. v .. ".txt", "This player is a mod.")
+        end
+    end
+
+    if not isfolder(CB_Manager['StandardFolder'] .. "/saved_owner") then
+        makefolder(CB_Manager['StandardFolder'] .. "/saved_owner")
+        writefile(CB_Manager['StandardFolder'] .. "/saved_owner/" .. s_self.owner .. ".txt", "This player is the owner.")
     end
     warn('Saved Config')
-    warn('Check on file: '..CB_Manager['StandardFolder'])
+    warn('Check on file: ' .. CB_Manager['StandardFolder'])
     return s_self
 end
 
 function CB_Manager:requestGET(url)
-    local rhttp = game:GetService('HttpService') 
-    local req = syn and syn.request or http and http.request or http_request or fluxus and fluxus.request or getgenv().request or request
-	if req then
-		local response = req({
-			Url = url,
-			Method = 'GET',
-		})
-		return response.Body
-	else
-		warn("CBM | PluginDownloader Exploit does not support request. This plugin will not work.")
-	end
+    local rhttp = game:GetService('HttpService')
+    local req = syn and syn.request or http and http.request or http_request or fluxus and fluxus.request or
+                    getgenv().request or request
+    if req then
+        local response = req({
+            Url = url,
+            Method = 'GET'
+        })
+        return response.Body
+    else
+        warn("CBM | PluginDownloader Exploit does not support request. This plugin will not work.")
+    end
 end
 
 function CB_Manager:getFileName(attemptName, RAW)
     local fileName
     if attemptName then
         if attemptName:sub(-fileExLen) == '.' .. CB_Manager['fileExtension'] then
-			fileName = attemptName
-		else
-			fileName = attemptName ..'.' .. CB_Manager['fileExtension']
+            fileName = attemptName
+        else
+            fileName = attemptName .. '.' .. CB_Manager['fileExtension']
         end
-        if not isfile(CB_Manager['StandardFolder'].."/saved_plugins/"..fileName) then
+        if not isfile(CB_Manager['StandardFolder'] .. "/saved_plugins/" .. fileName) then
             return fileName
         else
             warn("CBM | PluginDownloader Provided file name already exists.")
         end
     else
         fileName = loadstring(RAW)().PluginName .. "." .. CB_Manager['fileExtension']
-        if not isfile(CB_Manager['StandardFolder'].."/saved_plugins/"..fileName) then return fileName end
-        repeat fileName = CB_Manager:randomStringP() .. "." .. CB_Manager['fileExtension'] until not isfile(CB_Manager['StandardFolder'].."/saved_plugins/"..fileName)
+        if not isfile(CB_Manager['StandardFolder'] .. "/saved_plugins/" .. fileName) then
+            return fileName
+        end
+        repeat
+            fileName = CB_Manager:randomStringP() .. "." .. CB_Manager['fileExtension']
+        until not isfile(CB_Manager['StandardFolder'] .. "/saved_plugins/" .. fileName)
         return fileName
     end
 end
@@ -105,14 +114,39 @@ function CB_Manager:downloadPlugin(plugin)
     if not game:IsLoaded() then
         game.Loaded:Wait()
     end
-    local url = "https://raw.githubusercontent.com/Zirmith/CB-Manager/main/Plugins/"..plugin..'.lua'
-    if not isfolder(CB_Manager['StandardFolder'].."/saved_plugins") then
-        makefolder(CB_Manager['StandardFolder'].."/saved_plugins")
-        if not plugin then warn("CBM | PluginDownloader Plugin not specified.") end
+    local url = "https://raw.githubusercontent.com/Zirmith/CB-Manager/main/Plugins/" .. plugin .. '.lua'
+    if not isfolder(CB_Manager['StandardFolder'] .. "/saved_plugins") then
+        makefolder(CB_Manager['StandardFolder'] .. "/saved_plugins")
+        if not plugin then
+            warn("CBM | PluginDownloader Plugin not specified.")
+        end
         local pluginRaw = CB_Manager:requestGET(url)
-		local pluginName = CB_Manager:getFileName(plugin, pluginRaw)
-		writefile(CB_Manager['StandardFolder'].."/saved_plugins/"..pluginName, pluginRaw)
-		warn("CBM | PluginDownloader Saved plugin as " .. pluginName)
+        local pluginName = CB_Manager:getFileName(plugin, pluginRaw)
+        writefile(CB_Manager['StandardFolder'] .. "/saved_plugins/" .. pluginName, pluginRaw)
+        warn("CBM | PluginDownloader Saved plugin as " .. pluginName)
+        table.insert(CB_Manager.plugins, pluginName)
+    end
+end
+
+function CB_Manager:addCommand(command, options)
+    local json;
+    local https = game:GetService 'HttpService'
+    if not command then
+        warn("CBM | CommandHandler Command not specified.")
+    end
+    if command then
+        local core = options or {}
+        local func = core['execute']
+        local setup = {
+            ['Command'] = command,
+            ['execute'] = func
+        }
+        json = https:JSONEncode(setup)
+        if not isfolder(CB_Manager['StandardFolder'] .. "/saved_commands") then
+            makefolder(CB_Manager['StandardFolder'] .. "/saved_commands")
+            writefile(CB_Manager['StandardFolder'] .. "/saved_commands/" .. command .. ".lua", json, null, 2)
+            table.insert(CB_Manager.commands, command)
+        end
     end
 end
 
@@ -120,12 +154,14 @@ function CB_Manager:runPlugin(plugin, options)
     if not game:IsLoaded() then
         game.Loaded:Wait()
     end
-       local ci = options or {}
-       local path = CB_Manager['StandardFolder'].."/saved_plugins/"..plugin..'.lua'
-        if not plugin then warn("CBM | PluginDownloader Plugin not specified.") end
-        local func = loadstring(readfile(path))()
-        pcall(func['Commands'](ci['args1'] and ci['args2']))
-	warn("CBM | PluginDownloader Ran plugin: " .. plugin)
+    local ci = options or {}
+    local path = CB_Manager['StandardFolder'] .. "/saved_plugins/" .. plugin .. '.lua'
+    if not plugin then
+        warn("CBM | PluginDownloader Plugin not specified.")
+    end
+    local func = loadstring(readfile(path))()
+    pcall(func['Commands'](ci['args1'] and ci['args2']))
+    warn("CBM | PluginDownloader Ran plugin: " .. plugin)
 end
 
 return CB_Manager
