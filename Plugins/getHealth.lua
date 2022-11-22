@@ -4,6 +4,6 @@ return {
     ["Commands"] = function(f1,f2)
         local client = CB_Manager['Client'].Character
         local hum = client:FindFirstChild('Humanoid')
-        print(hum.Health)
+        return(hum.Health)                    
     end
 }
