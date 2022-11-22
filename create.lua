@@ -116,21 +116,16 @@ function CB_Manager:downloadPlugin(plugin)
     end
 end
 
-function CB_Manager:runPlugin(plugin,args)
+function CB_Manager:runPlugin(plugin, options)
     if not game:IsLoaded() then
         game.Loaded:Wait()
     end
+       local ci = options or {}
        local path = CB_Manager['StandardFolder'].."/saved_plugins/"..plugin..'.lua'
         if not plugin then warn("CBM | PluginDownloader Plugin not specified.") end
         local func = loadstring(readfile(path))()
-        pcall(func['Commands'](args))
-		warn("CBM | PluginDownloader Ran plugin: " .. plugin)
+        pcall(func['Commands'](ci['args1'] and ci['args2']))
+	warn("CBM | PluginDownloader Ran plugin: " .. plugin)
 end
-
-
-
-
-
-
 
 return CB_Manager
