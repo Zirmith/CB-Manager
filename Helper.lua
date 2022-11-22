@@ -1,7 +1,8 @@
-getgenv().CB_Manager = {
+local CB_Manager = {
     ['StandardFolder'] = "CBM-CONFIG",
     ['Client'] = game:GetService("Players").LocalPlayer
 }
+
 CB_Manager._index = CB_Manager
 
 function CB_Manager:Configuration(options)
@@ -24,29 +25,34 @@ function CB_Manager:Configuration(options)
     if not isfolder(CB_Manager['StandardFolder'].."/saved_configs") then
         makefolder(CB_Manager['StandardFolder'].."/saved_configs")
             writefile(CB_Manager['StandardFolder'].."/saved_configs/"..s_self.configName..".txt",  game:GetService("HttpService"):JSONEncode(s_self))
+            else 
+            if isfolder(CB_Manager['StandardFolder'].."/saved_configs") then
+                 writefile(CB_Manager['StandardFolder'].."/saved_configs/"..s_self.configName..".txt",  game:GetService("HttpService"):JSONEncode(s_self))
+            end
     end
 
     if not isfolder(CB_Manager['StandardFolder'].."/saved_admins") then
         makefolder(CB_Manager['StandardFolder'].."/saved_admins")
-        for i,v in ipairs(s_self.admins) do
+        for i,v in pairs(s_self.admins) do
             writefile(CB_Manager['StandardFolder'].."/saved_admins/"..v..".txt", "This player is a admin.")
         end
     end
 
     if not isfolder(CB_Manager['StandardFolder'].."/saved_mods") then
         makefolder(CB_Manager['StandardFolder'].."/saved_mods")
-        for i,v in ipairs(s_self.mods) do
+        for i,v in pairs(s_self.mods) do
             writefile(CB_Manager['StandardFolder'].."/saved_mods/"..v..".txt", "This player is a mod.")
         end
     end
 
     if not isfolder(CB_Manager['StandardFolder'].."/saved_owner") then
         makefolder(CB_Manager['StandardFolder'].."/saved_owner")
-        for i,v in ipairs(s_self.owner) do
+        for i,v in pairs(s_self.owner) do
             writefile(CB_Manager['StandardFolder'].."/saved_owner/"..v..".txt", "This player is the owner.")
         end
     end
-
+    warn('Saved Config')
+    warn('Check on file: '..CB_Manager['StandardFolder'])
     return s_self
 end
 
@@ -54,11 +60,9 @@ function CB_Manager:loadPlugin(plugin)
     if not game:IsLoaded() then
         game.Loaded:Wait()
     end
-    local url = ""
+    local url = "https://raw.githubusercontent.com/Zirmith/CB-Manager/main/Plugins/"..plugin..'.cbm'
 end
 
 
-
-return getgenv().CB_Manager
-
+return CB_Manager
 
