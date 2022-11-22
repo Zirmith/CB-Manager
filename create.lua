@@ -162,7 +162,7 @@ function CB_Manager:runPlugin(plugin, options)
     end
     local func = loadstring(readfile(path))()
     pcall(plugin,
-        func['Commands'](ci['args2'],ci['args2'])
+        func['Commands'](ci['args1'],ci['args2'])
     )
     warn("CBM | PluginDownloader Ran plugin: " .. plugin)
 end
