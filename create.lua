@@ -1,6 +1,6 @@
 local CB_Manager = {
     ['StandardFolder'] = "CBM-CONFIG",
-    ['fileExtension'] = "cbm",
+    ['fileExtension'] = "lua",
     ['Client'] = game:GetService("Players").LocalPlayer
 }
 
@@ -51,9 +51,7 @@ function CB_Manager:Configuration(options)
 
     if not isfolder(CB_Manager['StandardFolder'].."/saved_owner") then
         makefolder(CB_Manager['StandardFolder'].."/saved_owner")
-        for i,v in pairs(s_self.owner) do
-            writefile(CB_Manager['StandardFolder'].."/saved_owner/"..v..".txt", "This player is the owner.")
-        end
+            writefile(CB_Manager['StandardFolder'].."/saved_owner/"..s_self.owner..".txt", "This player is the owner.")
     end
     warn('Saved Config')
     warn('Check on file: '..CB_Manager['StandardFolder'])
@@ -107,7 +105,7 @@ function CB_Manager:downloadPlugin(plugin)
     if not game:IsLoaded() then
         game.Loaded:Wait()
     end
-    local url = "https://raw.githubusercontent.com/Zirmith/CB-Manager/main/Plugins/"..plugin..'.cbm'
+    local url = "https://raw.githubusercontent.com/Zirmith/CB-Manager/main/Plugins/"..plugin..'.lua'
     if not isfolder(CB_Manager['StandardFolder'].."/saved_plugins") then
         makefolder(CB_Manager['StandardFolder'].."/saved_plugins")
         if not plugin then warn("CBM | PluginDownloader Plugin not specified.") end
@@ -117,5 +115,22 @@ function CB_Manager:downloadPlugin(plugin)
 		warn("CBM | PluginDownloader Saved plugin as " .. pluginName)
     end
 end
+
+function CB_Manager:runPlugin(plugin)
+ local https = game:GetService'HttpService'
+    if not game:IsLoaded() then
+        game.Loaded:Wait()
+    end
+       local path = CB_Manager['StandardFolder'].."/saved_plugins/"..plugin..'.lua'
+        if not plugin then warn("CBM | PluginDownloader Plugin not specified.") end
+        local file = readfile(path)
+        loadfile(file)
+		warn("CBM | PluginDownloader Ran plugin: " .. plugin)
+end
+
+
+
+
+
 
 return CB_Manager
