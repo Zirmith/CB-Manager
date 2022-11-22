@@ -138,15 +138,15 @@ function CB_Manager:addCommand(command, options)
     end
     if command then
         local core = options or {}
-        local func = core['execute']
         local setup = {
             ['Command'] = command,
-            ['execute'] = func
+            ['execute'] = core['execute']
         }
         json = https:JSONEncode(setup)
         if not isfolder(CB_Manager['StandardFolder'] .. "/saved_commands") then
             makefolder(CB_Manager['StandardFolder'] .. "/saved_commands")
             writefile(CB_Manager['StandardFolder'] .. "/saved_commands/" .. command .. ".lua", json, null, 2)
+            warn('Saved command: '..command)
         end
     end
 end
