@@ -1,4 +1,4 @@
-local CB_Manager = loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/Zirmith/CB-Manager/main/require.lua"))() -- This is a loadstring silly .,.
+local CB_Manager = loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/Zirmith/CB-Manager/main/core.lua"))() -- This is a loadstring silly .,.
 
 local config = CB_Manager:Configuration({
     ['prefix'] = "?",
