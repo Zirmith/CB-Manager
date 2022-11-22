@@ -199,6 +199,7 @@ function CB_Manager:init(config)
 
     function self:getPlugin(p)
         CB_Manager:downloadPlugin(p)
+        return p
     end
 
     return self
