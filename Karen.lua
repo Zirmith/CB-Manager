@@ -113,7 +113,9 @@ function CB_Manager:downloadPlugin(plugin)
         if not plugin then warn("CBM | PluginDownloader Plugin not specified.") end
         local pluginRaw = CB_Manager:requestGET(url)
 		local pluginName = CB_Manager:getFileName(plugin, pluginRaw)
-		writefile(pluginName, pluginRaw)
+		writefile(CB_Manager['StandardFolder'].."/saved_plugins/"..pluginName, pluginRaw)
 		warn("CBM | PluginDownloader Saved plugin as " .. pluginName)
     end
 end
+
+return CB_Manager
