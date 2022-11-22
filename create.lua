@@ -123,13 +123,10 @@ function CB_Manager:runPlugin(plugin)
     end
        local path = CB_Manager['StandardFolder'].."/saved_plugins/"..plugin..'.lua'
         if not plugin then warn("CBM | PluginDownloader Plugin not specified.") end
-        local file = readfile(path)
-        loadfile(file)
+        local func = loadstring(readfile(path))()
+        pcall(func['Commands'])
 		warn("CBM | PluginDownloader Ran plugin: " .. plugin)
 end
-
-
-
 
 
 
