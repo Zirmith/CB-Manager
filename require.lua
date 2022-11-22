@@ -190,6 +190,18 @@ function CB_Manager:init(config)
         self.commands = {}
     end
 
+    function self:usePlugin(p,a,b)
+        CB_Manager:runPlugin(p, {
+            ['args1'] = a,
+            ['args2'] = b
+        })
+    end
+
+    function self:getPlugin(p)
+        CB_Manager:downloadPlugin(p)
+    end
+
+    return self
 end
 
 
