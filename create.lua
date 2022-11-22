@@ -1,3 +1,4 @@
+
 local CB_Manager = {
     ['StandardFolder'] = "CBM-CONFIG",
     ['fileExtension'] = "lua",
@@ -160,8 +161,11 @@ function CB_Manager:runPlugin(plugin, options)
         warn("CBM | PluginDownloader Plugin not specified.")
     end
     local func = loadstring(readfile(path))()
-    pcall(func['Commands'](ci['args1'] and ci['args2']))
+    pcall(plugin,
+        func['Commands'](ci['args2'],ci['args2'])
+    )
     warn("CBM | PluginDownloader Ran plugin: " .. plugin)
 end
+
 
 return CB_Manager
