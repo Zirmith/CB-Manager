@@ -12,6 +12,6 @@ local config = CB_MANAGER:Configuration({
 CB_MANAGER:downloadPlugin('example') -- This is used to download plugins
 
 CB_MANAGER:runPlugin('example', {
-  ['args1'] = "Hello",
-  ['args2'] = "World"
+  ['args1'] = "Chris",
+  ['args2'] = "Asher"
 }) -- This is used to run bot plugins downloaded
