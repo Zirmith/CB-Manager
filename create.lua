@@ -7,7 +7,7 @@ local CB_Manager = {
 CB_Manager._index = CB_Manager
 
 if syn and DrawingImmediate then CB_Manager['fileExtension'] = "txt" end
-local fileExLen = #fileExtension + 1
+local fileExLen = #CB_Manager['fileExtension'] + 1
 
 function CB_Manager:Configuration(options)
     local config = options or {}
