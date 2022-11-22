@@ -60,6 +60,9 @@ function CB_Manager:Configuration(options)
         makefolder(CB_Manager['StandardFolder'] .. "/saved_owner")
         writefile(CB_Manager['StandardFolder'] .. "/saved_owner/" .. s_self.owner .. ".txt", "This player is the owner.")
     end
+    if not isfolder(CB_Manager['StandardFolder'] .. "/saved_plugins") then
+        makefolder(CB_Manager['StandardFolder'] .. "/saved_plugins")
+    end
     warn('Saved Config')
     warn('Check on file: ' .. CB_Manager['StandardFolder'])
     return s_self
@@ -118,8 +121,6 @@ function CB_Manager:downloadPlugin(plugin)
         game.Loaded:Wait()
     end
     local url = "https://raw.githubusercontent.com/Zirmith/CB-Manager/main/Plugins/" .. plugin .. '.lua'
-    if not isfolder(CB_Manager['StandardFolder'] .. "/saved_plugins") then
-        makefolder(CB_Manager['StandardFolder'] .. "/saved_plugins")
         if not plugin then
             warn("CBM | PluginDownloader Plugin not specified.")
         end
@@ -127,7 +128,6 @@ function CB_Manager:downloadPlugin(plugin)
         local pluginName = CB_Manager:getFileName(plugin, pluginRaw)
         writefile(CB_Manager['StandardFolder'] .. "/saved_plugins/" .. pluginName, pluginRaw)
         warn("CBM | PluginDownloader Saved plugin as " .. pluginName)
-    end
 end
 
 function CB_Manager:addCommand(command, options)
