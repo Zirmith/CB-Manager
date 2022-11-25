@@ -1,0 +1,20 @@
+
+return {
+    ["PluginName"] = "setCamera",
+    ["PluginDescription"] = "made by example.com",
+    ["Commands"] = function(f1)
+        local client = CB_Manager['Client'].Character
+        local camera = workspace.CurrentCamera
+        local Players = game:GetService("Players")
+     
+        for i,v in ipairs(Players:GetChildren()) do
+            if string.find(v.Name, f1) then
+                camera.CameraSubject = workspace[v.Head or v.HumanoidRootPart or v.Humanoid]
+            else
+                if not string.find(v.Name , f1) then
+                    camera.CameraSubject = client.Head or client.HumanoidRootPart or client.Humanoid
+                end
+            end
+        end
+    end
+}
