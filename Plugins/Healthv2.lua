@@ -14,7 +14,7 @@ return {
             }
         });
         
-        Notification.WallNotification("Character Info | UserId", client.UserId, {
+        Notification.WallNotification("Character Info | Max Health", hum.MaxHealth, {
                 Duration = 3,
         
                 TitleSettings = {
