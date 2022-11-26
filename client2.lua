@@ -279,23 +279,23 @@ for i, connection in pairs(getconnections(LocalPlayer.Idled)) do
 end
 
 function self:returnHRP()
-    if not CB_Manager['client'].Character then
+    if not CB_Manager['Client'].Character then
         return
     end
-    if not CB_Manager['client'].Character:FindFirstChild("HumanoidRootPart") then
+    if not CB_Manager['Client'].Character:FindFirstChild("HumanoidRootPart") then
         return
     else
-        return CB_Manager['client'].Character:FindFirstChild("HumanoidRootPart")
+        return CB_Manager['Client'].Character:FindFirstChild("HumanoidRootPart")
 end
 
 function self:returnHUM()
-    if not CB_Manager['client'].Character then
+    if not CB_Manager['Client'].Character then
         return
     end
-    if not CB_Manager['client'].Character:FindFirstChild("Humanoid") then
+    if not CB_Manager['Client'].Character:FindFirstChild("Humanoid") then
         return
     else
-        return CB_Manager['client'].Character:FindFirstChild("Humanoid")
+        return CB_Manager['Client'].Character:FindFirstChild("Humanoid")
     end
 end
 
