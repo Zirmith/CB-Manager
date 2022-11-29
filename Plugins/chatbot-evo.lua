@@ -84,7 +84,7 @@ OnMessageDoneFiltering.OnClientEvent:Connect(function(Table)
 		warn("Response (> 128): " .. Response);
 		if #Response - 128 < 128 then
 			SayMessageRequest:FireServer(string.sub(Response, 1, 128), "All");
-			delay(0.7, function()
+			delay(1, function()
 				SayMessageRequest:FireServer(string.sub(Response, 129), "All");
 				wait(5);
 				SayMessageRequest:FireServer('Sorry, Im on Cooldown',"All")
