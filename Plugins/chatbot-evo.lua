@@ -13,7 +13,7 @@ local SECRET_KEY  = key; --https://beta.openai.com/account/api-keys
 local CLOSE_RANGE_ONLY = true;
 
 _G.MESSAGE_SETTINGS = {
-	["MINIMUM_CHARACTERS"] = 10,
+	["MINIMUM_CHARACTERS"] = 3,
 	["MAXIMUM_CHARACTERS"] = 50,
 	["MAXIMUM_STUDS"] = 10.5,
 };
