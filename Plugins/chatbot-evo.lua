@@ -15,7 +15,7 @@ local CLOSE_RANGE_ONLY = true;
 _G.MESSAGE_SETTINGS = {
 	["MINIMUM_CHARACTERS"] = 3,
 	["MAXIMUM_CHARACTERS"] = 50,
-	["MAXIMUM_STUDS"] = 10.5,
+	["MAXIMUM_STUDS"] = 14,
 };
 
 _G.WHITELISTED = { --Only works if CLOSE_RANGE_ONLY is disabled
